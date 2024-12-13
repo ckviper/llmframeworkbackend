@@ -1,16 +1,17 @@
-import jaydebeapi
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
-H2_URL = "jdbc:h2:mem:testdb"
-H2_USERNAME = "1"
-H2_PASSWORD = "1"
-H2_JAR_PATH = "jar/h2-2.3.230.jar"
-H2_DRIVER = "org.h2.Driver"
+SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
 
-def get_db_connection():
-    conn = jaydebeapi.connect(
-        H2_DRIVER,
-        H2_URL,
-        [H2_USERNAME, H2_PASSWORD],
-        H2_JAR_PATH
-    )
-    return conn
+engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+Base = declarative_base()
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
