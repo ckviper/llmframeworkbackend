@@ -1,12 +1,12 @@
-from pydantic import BaseModel, EmailStr, validator
+from pydantic import BaseModel, EmailStr, validator, Field
 import re
 
 
 class UserReg(BaseModel):
-    first_name: str
-    last_name: str
-    email: EmailStr
-    password: str
+    first_name: str = Field(description="Имя юзера")
+    last_name: str = Field(description="Фамилия юзера")
+    email: EmailStr = Field(description="Электорнная почта юзера")
+    password: str = Field(description="Пароль юзера")
 
     @validator("password")
     def validate_password(cls, value):
@@ -24,5 +24,5 @@ class UserReg(BaseModel):
 
 
 class UserLog(BaseModel):
-    email: str
-    password: str
+    email: str = Field(description="Электорнная почта юзера")
+    password: str = Field(description="Пароль юзера")

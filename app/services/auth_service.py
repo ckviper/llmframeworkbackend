@@ -1,13 +1,13 @@
 from app.models.user import UserReg, UserLog
 from sqlalchemy.orm import Session
 from app.database.models import User
-import hashlib
+import bcrypt
 from fastapi.responses import JSONResponse
 from fastapi_jwt_auth import AuthJWT
 
 
 def ResponseRegister(user: UserReg, db: Session, Authorize: AuthJWT):
-    password_hash = hashlib.sha256(user.password.encode()).hexdigest()
+    password_hash = bcrypt.hashpw(user.password.encode(), bcrypt.gensalt())
     email_check = db.query(User).filter(User.email == user.email).first()
     if email_check:
         return JSONResponse(content={"message": "user already exists"},
@@ -17,8 +17,8 @@ def ResponseRegister(user: UserReg, db: Session, Authorize: AuthJWT):
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-    access_token = Authorize.create_access_token(subject=new_user.id)
-    refresh_token = Authorize.create_refresh_token(subject=new_user.id)
+    access_token = Authorize.create_access_token(subject=str(new_user.id))
+    refresh_token = Authorize.create_refresh_token(subject=str(new_user.id))
     return JSONResponse(content={"access_token": access_token,
                                  "refresh_token": refresh_token},
                         status_code=200)
@@ -29,12 +29,12 @@ def ResponseLogin(user: UserLog, db: Session, Authorize: AuthJWT):
     if email_check is None:
         return JSONResponse(content={"message": "incorrect email"},
                             status_code=403)
-    password_hash = hashlib.sha256(user.password.encode()).hexdigest()
-    if password_hash != email_check.password_hash:
+    if (bcrypt.checkpw(user.password.encode(), email_check.password_hash)):
+        access_token = Authorize.create_access_token(subject=str(email_check.id))
+        refresh_token = Authorize.create_refresh_token(subject=str(email_check.id))
+        return JSONResponse(content={"access_token": access_token,
+                                     "refresh_token": refresh_token},
+                            status_code=200)
+    else:
         return JSONResponse(content={"message": "incorrect password"},
                             status_code=403)
-    access_token = Authorize.create_access_token(subject=email_check.id)
-    refresh_token = Authorize.create_refresh_token(subject=email_check.id)
-    return JSONResponse(content={"access_token": access_token,
-                                 "refresh_token": refresh_token},
-                        status_code=200)
