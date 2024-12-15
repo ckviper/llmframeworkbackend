@@ -1,0 +1,1 @@
+AUTH_JWT_SECRET_KEY = "test"
