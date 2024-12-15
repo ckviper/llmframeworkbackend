@@ -15,7 +15,7 @@ def jwt_required_decorator(func):
     async def wrapper(*args, **kwargs):
         Authorize: AuthJWT = kwargs.get("Authorize")
         if Authorize is None:
-            raise HTTPException(status_code=500, detail="AuthJWT dependency is required")     
+            raise HTTPException(status_code=403 , detail="AuthJWT dependency is required")
         # Проверяем JWT токен
         try:
             Authorize.jwt_required()
