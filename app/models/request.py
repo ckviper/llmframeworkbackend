@@ -13,9 +13,10 @@ class Request(BaseModel):
 
 
 class RequestCreate(BaseModel):
-    model: str = Field(description="Модель с которой работаем")
-    message: str = Field(description="Сообщение отправленное пользователем")
-    temperature: float = Field(default=0.7, description="Температура используемая для ответа от нейронки")
+    user_id: UUID = Field(description="Идентификатор пользователя")
+    model: str = Field(description="Модель нейронной сети")
+    message: str = Field(description="Сообщение пользователя")
+    temperature: float = Field(default=0.7, description="Температура для генерации ответа")
 
 
 class RequestResponse(BaseModel):
