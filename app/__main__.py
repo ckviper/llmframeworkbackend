@@ -2,8 +2,11 @@ import uvicorn
 from fastapi import FastAPI
 from app.database.database import engine, Base
 from app.api.v1.endpoints.auth import router as auth_router
+from app.api.v1.endpoints.chat import router as chat_router
+from app.api.v1.endpoints.request import router as request_router
 from fastapi_jwt_auth import AuthJWT
 from app.core.jwt.jwtset import Settings
+
 
 Base.metadata.create_all(bind=engine)
 
@@ -16,6 +19,8 @@ def get_config():
 app = FastAPI()
 
 app.include_router(auth_router)
+app.include_router(chat_router)
+app.include_router(request_router)
 
 if __name__ == "__main__":
     uvicorn.run(f"app.{__name__}:app", host="0.0.0.0", port=8000, reload=True)

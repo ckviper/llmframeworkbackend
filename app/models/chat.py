@@ -1,6 +1,5 @@
 from pydantic import BaseModel, Field
 from datetime import datetime
-from uuid import UUID
 
 
 class Chat(BaseModel):
@@ -17,7 +16,7 @@ class ChatCreate(BaseModel):
 
 
 class ChatResponse(BaseModel):
-    id: UUID = Field(description="Индивидуальный идентификатор чата")
+    id: int = Field(description="Индивидуальный идентификатор чата")
     user_id: int = Field(description="Индентификатор юзера")
     model: str = Field(description="Модель с которой работаем")
     message: str = Field(description="Сообщение в чате")
