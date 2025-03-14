@@ -13,3 +13,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "llmframeworkbackend"
+include("api-gateway")

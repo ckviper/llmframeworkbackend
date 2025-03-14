@@ -10,6 +10,7 @@ jjwt = "0.2"
 googleCryptoTink = "1.13.0"
 mapstruct = "1.5.5.Final"
 nimbusJoseJwt = "9.37.3"
+spring-cloud = "4.1.5"
 
 [libraries]
 apache-kafka = { group = "org.apache.kafka", name = "kafka-streams" }
@@ -42,6 +43,7 @@ spring-kafka = { group = "org.springframework.kafka", name = "spring-kafka" }
 spring-kafka-test = { group = "org.springframework.kafka", name = "spring-kafka-test" }
 spring-security-config = { group = "org.springframework.security", name = "spring-security-config" }
 spring-security-test = { group = "org.springframework.security", name = "spring-security-test" }
+spring-cloud-starter-gateway = { group = "org.springframework.cloud", name = "spring-cloud-starter-gateway", version.ref = "spring-cloud"}
 
 tink = { group = "com.google.crypto.tink", name = "tink", version.ref = "googleCryptoTink" }
 
