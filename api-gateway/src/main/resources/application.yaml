@@ -1,7 +1,45 @@
 server:
   port: 8080
+
 spring:
+  main:
+    web-application-type: reactive
   cloud:
     gateway:
       routes:
-        - id: models
+        - id: chat_completions_route
+          uri: http://localhost:8081
+          predicates:
+            - Path=/v1/chat/completions
+          filters:
+            - ModelRoutingFilter
+
+        - id: completions_route
+          uri: http://localhost:8081
+          predicates:
+            - Path=/v1/completions
+          filters:
+            - ModelRoutingFilter
+
+models:
+  models:
+    - name: Qwen
+      version: 2.5
+      model_id: Qwen2.5-1.5B-Instruct
+      description: Модель Qwen версии 2.5 с 1.5 миллиардами параметров, предназначенная для инструкций.
+      endpoint: /v1/models/qwen
+      host: 8081
+
+    - name: nvidea
+      version: 1.5
+      model_id: AceInstruct-1.5B
+      description: Модель AceInstruct с 1.5 миллиардами параметров от nvidea.
+      endpoint: /v1/models/nvidea
+      host: 8082
+
+    - name: HuggingFaceTB
+      version: 1.7
+      model_id: SmolLM2-1.7B-Instruct
+      description: Модель SmolLM2 с 1.7 миллиардами параметров от HuggingFaceTB, предназначенная для инструкций.
+      endpoint: /v1/models/huggingfacetb
+      host: 8083
