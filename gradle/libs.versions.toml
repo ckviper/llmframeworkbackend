@@ -1,0 +1,67 @@
+[versions]
+kotlin = "1.9.22"
+openapiGenerator = "7.4.0"
+springframeworkBoot = "3.2.3"
+springDependencyManagment = "1.1.4"
+springdoc = "2.5.0"
+jakartaValidation = "3.0.2"
+jacksonDatatypeJsr310 = "2.17.0"
+jjwt = "0.2"
+googleCryptoTink = "1.13.0"
+mapstruct = "1.5.5.Final"
+nimbusJoseJwt = "9.37.3"
+
+[libraries]
+apache-kafka = { group = "org.apache.kafka", name = "kafka-streams" }
+
+database-h2 = { group = "com.h2database", name = "h2" }
+database-postgresql = { group = "org.postgresql", name = "postgresql" }
+
+jakarta-validation-api = { group = "jakarta.validation", name = "jakarta.validation-api", version.ref = "jakartaValidation" }
+jackson-datatype-jsr310 = { group = "com.fasterxml.jackson.datatype", name = "jackson-datatype-jsr310", version.ref = "jacksonDatatypeJsr310" }
+jjwt = { group = "io.jsonwebtoken", name = "jjwt", version.ref = "jjwt" }
+
+lombok = { group = "org.projectlombok", name = "lombok" }
+
+mapstruct = { group = "org.mapstruct", name = "mapstruct", version.ref = "mapstruct" }
+mapstruct-processor = { group = "org.mapstruct", name = "mapstruct-processor", version.ref = "mapstruct" }
+nimbus-jose-jwt = { group = "com.nimbusds", name = "nimbus-jose-jwt", version.ref = "nimbusJoseJwt" }
+springdoc-openapi-starter-webmvc-ui = { group = "org.springdoc", name = "springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }
+spring-boot-starter-actuator = { group = "org.springframework.boot", name = "spring-boot-starter-actuator" }
+spring-boot-starter-data-jpa = { group = "org.springframework.boot", name = "spring-boot-starter-data-jpa" }
+spring-boot-starter-data-mongodb = { group = "org.springframework.boot", name = "spring-boot-starter-data-mongodb" }
+spring-boot-starter-data-redis = { group = "org.springframework.boot", name = "spring-boot-starter-data-redis" }
+spring-boot-starter-validation= { group = "org.springframework.boot", name = "spring-boot-starter-validation" }
+spring-boot-starter-web = { group = "org.springframework.boot", name = "spring-boot-starter-web" }
+spring-boot-starter-websocket = { group = "org.springframework.boot", name = "spring-boot-starter-websocket" }
+spring-boot-starter-oauth2-resource-server = { group = "org.springframework.boot", name = "spring-boot-starter-oauth2-resource-server"}
+spring-boot-starter-security = { group = "org.springframework.boot", name = "spring-boot-starter-security" }
+spring-boot-configuration-processor = { group = "org.springframework.boot", name = "spring-boot-configuration-processor" }
+spring-boot-starter-test = { group = "org.springframework.boot", name = "spring-boot-starter-test" }
+spring-kafka = { group = "org.springframework.kafka", name = "spring-kafka" }
+spring-kafka-test = { group = "org.springframework.kafka", name = "spring-kafka-test" }
+spring-security-config = { group = "org.springframework.security", name = "spring-security-config" }
+spring-security-test = { group = "org.springframework.security", name = "spring-security-test" }
+
+tink = { group = "com.google.crypto.tink", name = "tink", version.ref = "googleCryptoTink" }
+
+kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+openapi-generator-gradlePlugin = { group = "org.openapitools", name = "openapi-generator-gradle-plugin", version.ref = "openapiGenerator" }
+
+[bundles]
+jwt = [
+    "jjwt",
+    "nimbus-jose-jwt",
+    "tink"
+]
+resourceSecurity = [
+    "spring-boot-starter-security",
+    "spring-security-config",
+    "spring-boot-starter-oauth2-resource-server"
+]
+
+[plugins]
+spring-boot = { id = "org.springframework.boot", version.ref = "springframeworkBoot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "springDependencyManagment" }
+
+viper-microservice = { id = "viper-microservice" }
